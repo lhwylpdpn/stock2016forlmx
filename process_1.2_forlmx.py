@@ -178,7 +178,7 @@ def write_API(stockid,lnA_B_now,lnA_B_except,orderid):
 	json=""
 	writelog("有订单生成，订单数"+str(len(stockid)))
 	for r in range(len(stockid)):
-		json=json+str(stockid[r])+","+str(round(lnA_B_now[r],5))+","+str(round(lnA_B_except[r],5))+","+str(orderid[r])+","+str(round(lnA_B_now[r]/150,3))+","+str(orderid[r][0:3])+"\n"
+		json=json+str(stockid[r])+","+str(round(lnA_B_now[r],5))+","+str(round(lnA_B_except[r],5))+","+str(orderid[r])+","+str(round(lnA_B_now[r]/100,3))+","+str(orderid[r][0:3])+"\n"
 
 	print("有订单生成",orderid,stockid)
 	file_object.write(json)
@@ -188,7 +188,7 @@ def write_API(stockid,lnA_B_now,lnA_B_except,orderid):
 def result_DB(stockid,lnA_B_now,lnA_B_except,norm_now,norm_cha,orderid):
 	sql=""
 	for r in range(len(stockid)):
-		sql=sql+"insert into `order` values ('"+str(orderid[r])+"','"+str(stockid[r])+"','"+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))+"','"+str(round(lnA_B_now[r],5))+"','"+str(round(lnA_B_except[r],5))+"','"+str(norm_now[r])+"','"+str(norm_cha[r])+"','"+str(round(lnA_B_now[r]/150,3))+"');"
+		sql=sql+"insert into `order` values ('"+str(orderid[r])+"','"+str(stockid[r])+"','"+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))+"','"+str(round(lnA_B_now[r],5))+"','"+str(round(lnA_B_except[r],5))+"','"+str(norm_now[r])+"','"+str(norm_cha[r])+"','"+str(round(lnA_B_now[r]/100,3))+"');"
 	cur_result_DB.execute(sql)
 	cur_result_DB.close()
 
@@ -330,7 +330,7 @@ if __name__ == "__main__":
 			print("step3 loadcsv_add_clear完成"+str(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))))
 			writelog("整体用时"+str(time.time()-time1))
 
-			mail.run("mail.ini",checkDB()+",我自己的测试结果测试结果,当前时间的")
+			#mail.run("mail.ini",checkDB()+",我自己的测试结果测试结果,当前时间的")
 			cur_stock.close()
 			cur_update_stock.close()
 			cur_result.close()
